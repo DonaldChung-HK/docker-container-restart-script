@@ -16,7 +16,7 @@ check_health_status() {
 
 # Function to restart the container
 restart_container() {
-  echo "Restarting container $CONTAINER_NAME..."
+  echo "$(date +%Y-%m-%d_%H-%M-%S) - Restarting container $CONTAINER_NAME..."
   docker restart "$CONTAINER_NAME"
 }
 
@@ -25,14 +25,14 @@ health_status=$(check_health_status)
 
 # Check if the container exists
 if [ -z "$health_status" ]; then
-  echo "Container $CONTAINER_NAME does not exist or does not have a health check."
+  echo "$(date +%Y-%m-%d_%H-%M-%S) - Container $CONTAINER_NAME does not exist or does not have a health check."
   exit 1
 fi
 
 # Check if the container is healthy
 if [ "$health_status" == "unhealthy" ]; then
-  echo "Container $CONTAINER_NAME is not healthy. Status: $health_status"
+  echo "$(date +%Y-%m-%d_%H-%M-%S) - Container $CONTAINER_NAME is not healthy. Status: $health_status"
   restart_container
 else
-  echo "Container $CONTAINER_NAME is healthy."
+  echo "$(date +%Y-%m-%d_%H-%M-%S) - Container $CONTAINER_NAME is healthy."
 fi
